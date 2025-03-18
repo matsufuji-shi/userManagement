@@ -1,4 +1,7 @@
 // フォームの送信イベントを監視し、`addUser` 関数を実行する
+
+const { query } = require("express");
+
 // フォームに入力された情報を取得し、新しいユーザーをサーバーに登録する
 document.getElementById('userForm').addEventListener('submit', addUser);
 
@@ -97,6 +100,11 @@ searchButton.addEventListener("click",function(){
     const textInput = searchInput.value;
     // console.log(textInput);
 });
+
+//検索ボタンが押された際にサーバへリスエストを送る
+const response = await fetch(`/users/search?query=${encodeURIComponent(query)}`);
+
+
 
 
 // ページが最初にロードされたときに `getUsers` 関数を実行し、初期状態でユーザーリストを表示する
