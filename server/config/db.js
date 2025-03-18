@@ -45,16 +45,17 @@ app.get('/users/search',(req,res) => {
   if(!query){  
     return res.status(400).send({error:"検索条件が必要です"}); //queryが空、存在しない場合400とエラーメッセージを返す
   }
-  });
-//データベースから検索条件に一致するユーザー情報を習得するためのSQLクエリを準備
-  const spl = `SELECT * FROM user WHERE name LIKE ? OR email LIKE ?`;
+  //データベースから検索条件に一致するユーザー情報を習得するためのSQLクエリを準備
+  const sql = `SELECT * FROM user WHERE name LIKE ? OR email LIKE ?`;
   const values = [`%{query}`,`%${query}`];
 
 //データベースから検索結果を取得しクライアントに返す
-  db.query(spl,values,(err,results) => {
+  db.query(sql,values,(err,results) => {
     if (err) return res.status(500).sent(err);
     res.json(results);
   });
+  });
+
 
 
 // `connection` オブジェクトをエクスポートして、他のファイルでこの接続を使用できるようにする
