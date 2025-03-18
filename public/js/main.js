@@ -86,7 +86,7 @@ function deleteUser(id) {
         })
         .catch(error => {
             // ユーザー削除中にエラーが発生した場合、エラーメッセージをコンソールに表示
-            // console.error('Error:', error);
+            console.error('Error:', error);
         });
 }
 
