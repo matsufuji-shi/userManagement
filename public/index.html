@@ -30,10 +30,6 @@
             </form>
         </div>
 
-       
-
-
-        
         <div class="container">
             <!-- 右上: ユーザーリスト -->
             <h2>Users List</h2>
@@ -43,8 +39,10 @@
             <input type="text" id="searchInput" placeholder="ユーザー名またはメールアドレスを入力">
             <button type="button" id="searchButton">検索</button>
         </form>
+        <ul id="resultList"></ul>
         </div>
     </div>
+
 
     <!-- AxiosライブラリをCDNからインポートして、HTTPリクエストを簡単に送信できるようにする -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
