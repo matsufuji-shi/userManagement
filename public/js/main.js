@@ -90,6 +90,15 @@ function deleteUser(id) {
         });
 }
 
+//検索ボックスに入力された検索条件を取得
+const searchInput = document.getElementById("searchInput");
+const searchButton = document.getElementById("searchButton");
+searchButton.addEventListener("click",function(){
+    const textInput = searchInput.value;
+    // console.log(textInput);
+});
+
+
 // ページが最初にロードされたときに `getUsers` 関数を実行し、初期状態でユーザーリストを表示する
 // ページ読み込み時にすべてのユーザー情報を取得して、表示を行う
 getUsers();
