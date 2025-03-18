@@ -1,0 +1,172 @@
+/* 全体のスタイル */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 縦方向も中央揃え */
+  box-sizing: border-box;
+}
+
+/* フォームとリストを横並びにするためのラッパー */
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px; /* 要素間のスペースを追加 */
+  max-width: 1000px; /* 最大幅を制限して中央に表示 */
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* コンテナのスタイル */
+.container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px; /* 各コンテナの最大幅 */
+  box-sizing: border-box;
+}
+
+/* 見出しのスタイル */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 入力フィールドとボタンのスタイル */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* リンクのスタイル */
+a {
+  color: #007bff;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ユーザーリストのスタイル */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ボタンの基本スタイル */
+li a {
+  display: inline-block; /* ボタンと同じように見せるためにブロック要素にする */
+  padding: 5px 10px;
+  font-size: 12px;
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
+  background-color: #007bff; /* Updateボタンの背景色 */
+  transition: background-color 0.3s ease;
+}
+
+/* Updateボタンのホバーエフェクト */
+li a:hover {
+  background-color: #0056b3; /* Updateボタンのホバー時の色 */
+}
+
+/* Deleteボタンのスタイル */
+li button {
+  width: auto;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  background-color: #dc3545; /* Deleteボタンの背景色 */
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Deleteボタンのホバーエフェクト */
+li button:hover {
+  background-color: #c82333; /* Deleteボタンのホバー時の色 */
+}
+
+/* リスト項目の配置 */
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ボタンを横に並べる */
+li a, li button {
+  margin-left: 10px;
+}
+
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+/* 削除ボタンのスタイル */
+li button {
+  width: auto;
+  background-color: #dc3545;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+li button:hover {
+  background-color: #c82333;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .page-wrapper {
+      flex-direction: column; /* スマホなど小さい画面では縦並びに */
+  }
+}

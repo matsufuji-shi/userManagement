@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- HTML文書の言語を英語に設定 -->
+<head>
+    <!-- 文字エンコーディングをUTF-8に設定して、文字化けを防ぐ -->
+    <meta charset="UTF-8">
+    <!-- レスポンシブデザインのために、ビューポートの設定を行う -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 外部のCSSファイルをリンクして、スタイルを適用する -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- ページのタイトルを設定 -->
+    <title>Login</title>
+</head>
+<body>
+    <!-- メインコンテンツセクション -->
+    <main>
+        <!-- コンテンツを中央に配置するためのセクション -->
+        <section class="container">
+            <!-- ページの見出し -->
+            <h1>Login</h1>
+            <!-- ログインフォーム -->
+            <form id="loginForm">
+                <!-- メールアドレス入力フィールド -->
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Email" required>
+
+                <!-- パスワード入力フィールド -->
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Password" required>
+
+                <!-- ログインボタン -->
+                <button type="submit">Login</button>
+            </form>
+            <!-- エラーメッセージを表示するためのパラグラフ -->
+            <p id="errorMessage" style="color: red;"></p>
+        </section>
+    </main>
+
+    <!-- AxiosライブラリをCDNからインポートして、HTTPリクエストを簡単に送信できるようにする -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- JavaScriptファイルをインポートして、フォームの送信やエラーメッセージの処理を行う -->
+    <script src="./js/login.js"></script>
+</body>
+</html>
