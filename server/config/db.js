@@ -1,6 +1,10 @@
 // 'mysql2' モジュールをインポートし、MySQLデータベースに接続するための機能を使用
 const mysql = require('mysql2');
 
+//expressの使用
+const express = require('express');
+const app = express();
+
 // MySQL データベースへの接続設定を行う
 // `mysql.createConnection()` 関数はデータベースとの接続オブジェクトを生成する
 // 接続設定には以下のオプションを使用:
@@ -33,6 +37,25 @@ connection.connect((err) => {
     // 接続が成功した場合、コンソールに接続成功のメッセージを表示
     console.log('Connected to MySQL database.');
 });
+
+//クライアントから受け取った検索情報を取得
+//テーブル内の情報と比較しSQLクエリの実行
+app.get('/users/search',(req,res) => {
+    const query = req.query.query;  //値のみ取得する
+  if(!query){  
+    return res.status(400).send({error:"検索条件が必要です"}); //queryが空、存在しない場合400とエラーメッセージを返す
+  }
+  });
+//データベースから検索条件に一致するユーザー情報を習得するためのSQLクエリを準備
+  const spl = `SELECT * FROM user WHERE name LIKE ? OR email LIKE ?`;
+  const values = [`%{query}`,`%${query}`];
+
+//データベースから検索結果を取得しクライアントに返す
+  db.query(spl,values,(err,results) => {
+    if (err) return res.status(500).sent(err);
+    res.json(results);
+  });
+
 
 // `connection` オブジェクトをエクスポートして、他のファイルでこの接続を使用できるようにする
 // `module.exports` は、このファイルを `require` した際に返される値を指定する
