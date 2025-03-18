@@ -103,9 +103,14 @@ searchButton.addEventListener("click",function(){
 
 //検索ボタンが押された際にサーバへリスエストを送る
 const response = await fetch(`/users/search?query=${encodeURIComponent(query)}`);
-
-
-
+//検索ないように合わせ結果を出力する
+const resultList = document.getElementById("resultList");
+if(response){
+    resultList.insertAdjacentHTML(`beforeend,<li>ユーザー名:${user.name}.email:${user.email}</li>`)
+}
+else{
+    resultList.insertAdjacentHTML(`beforeend,<li>該当するユーザーが見つかりませんでした。</li>`)
+};
 
 // ページが最初にロードされたときに `getUsers` 関数を実行し、初期状態でユーザーリストを表示する
 // ページ読み込み時にすべてのユーザー情報を取得して、表示を行う
