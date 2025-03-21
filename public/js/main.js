@@ -1,6 +1,8 @@
 // フォームの送信イベントを監視し、`addUser` 関数を実行する
 
-const { query } = require("express");
+// const { query } = require("express");
+
+// const { query } = require("express");
 
 // フォームに入力された情報を取得し、新しいユーザーをサーバーに登録する
 document.getElementById('userForm').addEventListener('submit', addUser);
@@ -93,27 +95,36 @@ function deleteUser(id) {
         });
 }
 
-//検索ボックスに入力された検索条件を取得
-const searchInput = document.getElementById("searchInput");
-const searchButton = document.getElementById("searchButton");
-searchButton.addEventListener("click",function(){
-    const query = searchInput.value;
-    // console.log(query);
-    
-});
-
-//検索ボタンが押された際にサーバへリスエストを送る
-const response = await fetch(`/users/search?query=${encodeURIComponent(query)}`);
-
-  //検索ないように合わせ結果を出力する
-    const resultList = document.getElementById("resultList");
-    if(response){
-        resultList.insertAdjacentHTML(`beforeend,<li>ユーザー名:${user.name}.email:${user.email}</li>`)
-    }
-    else{
-        resultList.insertAdjacentHTML(`beforeend,<li>該当するユーザーが見つかりませんでした。</li>`)
-    };
-
 // ページが最初にロードされたときに `getUsers` 関数を実行し、初期状態でユーザーリストを表示する
 // ページ読み込み時にすべてのユーザー情報を取得して、表示を行う
 getUsers();
+
+//以下、おかしい気がする
+
+
+//検索ボックスに入力された検索条件を取得
+const searchInput = document.getElementById("searchInput");
+const searchButton = document.getElementById("searchButton");
+const resultList = document.getElementById("resultList");
+
+//ボタン押す＞入力値とテーブル内比較する＞あったら表示、なかったらメッセージ
+searchButton.addEventListener("click",function(){
+    // const query = searchInput.value;
+    //入力の値をqueryに入れる
+    async function data(query) {
+        try{
+            const response = await fetch(`/users/serch?query=${encodeURIComponent(query)}`);
+            const data = await response.json();
+            if(query == data.users ){
+                resultList.insertAdjacentHTML(`beforeend,<li>ユーザー名:${user.name}.email:${user.email}</li>`)
+            }else{
+                resultList.insertAdjacentHTML(`beforeend,<li>該当するユーザーが見つかりませんでした。</li>`)
+            }
+            
+        }catch{
+
+        }
+        
+    }
+data()
+});
