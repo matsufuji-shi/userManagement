@@ -1,5 +1,8 @@
 // フォームの送信イベントを監視し、`addUser` 関数を実行する
 
+const { rejects } = require("assert");
+const { resolve } = require("path");
+
 // const { query } = require("express");
 
 // const { query } = require("express");
@@ -109,22 +112,11 @@ const resultList = document.getElementById("resultList");
 
 //ボタン押す＞入力値とテーブル内比較する＞あったら表示、なかったらメッセージ
 searchButton.addEventListener("click",function(){
-    // const query = searchInput.value;
+    const query = searchInput.value;
     //入力の値をqueryに入れる
-    async function data(query) {
-        try{
-            const response = await fetch(`/users/serch?query=${encodeURIComponent(query)}`);
-            const data = await response.json();
-            if(query == data.users ){
-                resultList.insertAdjacentHTML(`beforeend,<li>ユーザー名:${user.name}.email:${user.email}</li>`)
-            }else{
-                resultList.insertAdjacentHTML(`beforeend,<li>該当するユーザーが見つかりませんでした。</li>`)
-            }
-            
-        }catch{
-
-        }
+    async function getda(params) {
         
     }
-data()
+    const response = await fetch(`/users/search?query=${encodeURIComponent(query)}`);
+    console.log(response)
 });

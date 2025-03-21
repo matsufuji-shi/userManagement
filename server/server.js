@@ -48,3 +48,24 @@ app.listen(PORT, () => {
   // サーバー起動時に、どのポートでサーバーが動作しているかをコンソールに出力
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+//クライアントから受け取った検索情報を取得
+//テーブル内の情報と比較しSQLクエリの実行
+app.get('/users/search',(req,res) => {
+  const query = req.query.query;  //値のみ取得する
+if(!query){  
+  return res.status(400).send({error:"検索条件が必要です"}); //queryが空、存在しない場合400とエラーメッセージを返す
+}
+//データベースから検索条件に一致するユーザー情報を習得するためのSQLクエリを準備
+const sql = `SELECT * FROM user WHERE name LIKE ? OR email LIKE ?`;
+const values = [`%{query}`,`%${query}`];
+
+//データベースから検索結果を取得しクライアントに返す
+db.query(sql,values,(err,results) => {
+  if (err) {
+    return res.status(500).sent(err);
+  }
+  res.json(results);
+});
+});
+
