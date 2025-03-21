@@ -109,7 +109,7 @@ const resultList = document.getElementById("resultList");
 
 //ボタン押す＞入力値とテーブル内比較する＞あったら表示、なかったらメッセージ
 searchButton.addEventListener("click",function(){
-    // const query = searchInput.value;
+    const query = searchInput.value;
     //入力の値をqueryに入れる
     async function data(query) {
         try{
