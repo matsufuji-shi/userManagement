@@ -11,7 +11,7 @@ const express = require('express');
 const cors = require('cors');
 
 //dbをインポート
-// const db = require('./config/db');
+const db = require('./config/db');
 
 // ユーザールートのモジュールをインポート
 // `./routes/userRoutes` にはユーザー関連の API エンドポイントが定義されている
@@ -58,26 +58,23 @@ app.listen(PORT, () => {
 app.get('/users/search',(req,res) => {
   const query = req.query.query;  //入力値の値のみ取得する
   console.log(query);
-if(!query){  
-  return res.status(400).send({error:"検索条件が必要です"}); //queryが空、存在しない場合400とエラーメッセージを返す
-}
-
-const sql = `SELECT * FROM users WHERE name LIKE ? OR email LIKE ?`;
-const values = [`%${query}%`, `%${query}%`];
-  //テーブルのユーザーとemailの内容をsqlへ入れている
-  
-  
-
-//データベースから検索条件に一致するユーザー情報を習得するためのSQLクエリを準備
-
-
-//データベースから検索結果を取得しクライアントに返す
-db.query(sql,values,(err,results) => {
-  if (err) {
-    return res.status(500).sent(err);
+  if(!query){  
+    return res.status(400).send({error:"検索条件が必要です"}); //queryが空、存在しない場合400とエラーメッセージを返す
   }
-  res.json(results);
+
+  const sql = `SELECT * FROM users WHERE name LIKE ? OR email LIKE ?`;
+  const values = [`%${query}%`, `%${query}%`];
+  //テーブルのユーザーとemailの内容をsqlへ入れている
+  // console.log(sql);
   
-});
+
+  //データベースから検索結果を取得しクライアントに返す
+  db.query(sql,values,(err,results) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.json(results);
+  
+  });
 });
 
