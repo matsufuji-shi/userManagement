@@ -61,6 +61,9 @@ app.get('/users/search',(req,res) => {
   //エラーハンドリング
   function getData(){
     try{
+      if (!query) {
+        return res.status(400).send({ error: '検索条件が必要です' });
+    }
       const sql = `SELECT * FROM users WHERE name LIKE ? OR email LIKE ?`;
       const values = [`%${query}%`, `%${query}%`];
       //テーブルのユーザーとemailの内容をsqlへ入れている
@@ -76,7 +79,7 @@ app.get('/users/search',(req,res) => {
       
       });
     }catch(error){
-    return res.status(400).send({error:"検索条件が必要です"}); //queryが空、存在しない場合400とエラーメッセージを返す
+    console.error("エラーが発生しました:",error);
   }
   }
   getData();
