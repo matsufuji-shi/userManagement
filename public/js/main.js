@@ -112,7 +112,7 @@ const resultList = document.getElementById("resultList");
 //ボタン押す＞入力値とテーブル内比較する＞あったら表示、なかったらメッセージ
 searchButton.addEventListener("click",async function(){
     const query = searchInput.value;
-    console.log(query); //入っている
+    // console.log(query); //入っている
     
     this.append.post
         try{
@@ -123,7 +123,18 @@ searchButton.addEventListener("click",async function(){
             }
             const data = await response.json();
             console.log(data);
-        
+
+            // userList.innerHTML = '';
+            // data.forEach(user => {
+            //     // ユーザー情報を格納する `<li>` 要素を作成
+            //     const li = document.createElement('li');
+
+            //     // リストアイテムの内容を設定
+            //     // ユーザー名、メールアドレス、更新リンク、および削除ボタンを表示
+            //     li.innerHTML = `${user.name} ${user.email}`  
+            // }
+
+            
         }catch(error){
             console.log("エラーが発生しました",error);
 
