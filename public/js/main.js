@@ -109,7 +109,8 @@ const comment = document.getElementById("comment");
 
 //ボタン押す＞入力値とテーブル内比較する＞あったら表示、なかったらメッセージ
 searchButton.addEventListener("click",async function(){
-    const query = searchInput.value;
+    const query = searchInput.value;  //入力値をqueryにいれる
+    //入力値の文字種を確認
     function checkText(){
         const regex = /^[ -/:-[-´{-~]*$/;
         if (regex.test(query)) {
@@ -127,7 +128,7 @@ searchButton.addEventListener("click",async function(){
                 throw new Error(`HTTPエラー!ステータスコード：${response.status}`);
             }
 
-            const data = await response.json();
+            const data = await response.json();  //サーバから返ってきた内容をdataにいれる
             if(data == ""){
                 userList.innerHTML = '';
                 comment.insertAdjacentHTML('beforeend',"<p>"+"該当するユーザーが見つかりませんでした。"+"</p>");
