@@ -77,6 +77,7 @@ app.get('/users/search',(req,res) => {
       });
     }catch(error){
     return res.status(400).send({error:"検索条件が必要です"}); //queryが空、存在しない場合400とエラーメッセージを返す
+    console.log(error);
   }
   }
   getData();
