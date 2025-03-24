@@ -114,11 +114,9 @@ searchButton.addEventListener("click",async function(){
     function checkText(){
         const regex = /^[-/:-[-´{-~]*$/;
         if(!query){
-            console.log("空白")
             alert("検索内容が未入力です。")
         }
         else if(regex.test(query)) {
-            console.log("記号")
             alert("記号が含まれています。")
         } 
     }
