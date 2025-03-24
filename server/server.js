@@ -64,7 +64,7 @@ app.get('/users/search',(req,res) => {
       const sql = `SELECT * FROM users WHERE name LIKE ? OR email LIKE ?`;
       const values = [`%${query}%`, `%${query}%`];
       //テーブルのユーザーとemailの内容をsqlへ入れている
-      // console.log(sql);
+      console.log(query);
       
     
       //データベースから検索結果を取得しクライアントに返す
@@ -77,7 +77,6 @@ app.get('/users/search',(req,res) => {
       });
     }catch(error){
     return res.status(400).send({error:"検索条件が必要です"}); //queryが空、存在しない場合400とエラーメッセージを返す
-    console.log(error);
   }
   }
   getData();
