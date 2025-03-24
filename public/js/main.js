@@ -1,8 +1,7 @@
-// フォームの送信イベントを監視し、`addUser` 関数を実行する
-
-// const { query } = require("express");
-
-// const { query } = require("express");
+//バリデーションの追加
+// const { check, validationResult } = require('express-validator');
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 // フォームに入力された情報を取得し、新しいユーザーをサーバーに登録する
 document.getElementById('userForm').addEventListener('submit', addUser);
@@ -106,25 +105,45 @@ getUsers();
 const searchInput = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
 const resultList = document.getElementById("resultList");
+const comment = document.getElementById("comment");
 
 //ボタン押す＞入力値とテーブル内比較する＞あったら表示、なかったらメッセージ
-searchButton.addEventListener("click",function(){
-    // const query = searchInput.value;
-    //入力の値をqueryに入れる
-    async function data(query) {
+searchButton.addEventListener("click",async function(){
+    const query = searchInput.value;  //入力値をqueryにいれる
+    //入力値の文字種を確認
+    function checkText(){
+        const regex = /^[-/:-[-´{-~]*$/;
+        if(!query){
+            alert("検索内容が未入力です。")
+        }
+        else if(regex.test(query)) {
+            alert("記号が含まれています。")
+        } 
+    }
+       checkText();
+    
         try{
-            const response = await fetch(`/users/serch?query=${encodeURIComponent(query)}`);
-            const data = await response.json();
-            if(query == data.users ){
-                resultList.insertAdjacentHTML(`beforeend,<li>ユーザー名:${user.name}.email:${user.email}</li>`)
-            }else{
-                resultList.insertAdjacentHTML(`beforeend,<li>該当するユーザーが見つかりませんでした。</li>`)
+            const response = await fetch(`http://localhost:3000/users/search?query=${encodeURIComponent(query)}`);
+            //URLはフルで入れる
+            if(!response.ok){
+                throw new Error(`HTTPエラー!ステータスコード：${response.status}`);
             }
-            
-        }catch{
+
+            const data = await response.json();  //サーバから返ってきた内容をdataにいれる
+            if(data == ""){
+                userList.innerHTML = '';
+                comment.insertAdjacentHTML('beforeend',"<p>"+"該当するユーザーが見つかりませんでした。"+"</p>");
+                }
+            else{
+                userList.innerHTML = '';
+                for(let i=0 ; i<data.length ; i++ ){
+                    resultList.insertAdjacentHTML('beforeend',`<li>名前：${data[i].name},email${data[i].email}</li>`);
+                
+                 }
+        }
+    }catch(error){
+            console.log("エラーが発生しました",error);
 
         }
         
-    }
-data()
-});
+    },false);
