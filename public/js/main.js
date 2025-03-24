@@ -1,10 +1,7 @@
-// フォームの送信イベントを監視し、`addUser` 関数を実行する
-
-// const { rejects } = require("assert");
-// const { resolve } = require("path");
-
-// // const { query } = require("express");
-
+//バリデーションの追加
+// const { check, validationResult } = require('express-validator');
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 // フォームに入力された情報を取得し、新しいユーザーをサーバーに登録する
 document.getElementById('userForm').addEventListener('submit', addUser);
@@ -113,9 +110,16 @@ const comment = document.getElementById("comment");
 //ボタン押す＞入力値とテーブル内比較する＞あったら表示、なかったらメッセージ
 searchButton.addEventListener("click",async function(){
     const query = searchInput.value;
-    // console.log(query); //入っている
+    function checkText(){
+        const regex = /^[ -/:-[-´{-~]*$/;
+        if (regex.test(query)) {
+            alert("記号が含まれています。")
+        } else if(query == "") {
+            alert("検索内容が未入力です。")
+        }
+    }
+       checkText();
     
-    // this.append.post
         try{
             const response = await fetch(`http://localhost:3000/users/search?query=${encodeURIComponent(query)}`);
             //URLはフルで入れる
@@ -124,9 +128,7 @@ searchButton.addEventListener("click",async function(){
             }
 
             const data = await response.json();
-            console.log(data);
             if(data == ""){
-                // console.log("なし");
                 userList.innerHTML = '';
                 comment.insertAdjacentHTML('beforeend',"<p>"+"該当するユーザーが見つかりませんでした。"+"</p>");
                 }

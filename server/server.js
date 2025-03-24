@@ -57,7 +57,7 @@ app.listen(PORT, () => {
 
 app.get('/users/search',(req,res) => {
   const query = req.query.query;  //入力値の値のみ取得する
-  console.log(query);
+  // console.log(query);
   if(!query){  
     return res.status(400).send({error:"検索条件が必要です"}); //queryが空、存在しない場合400とエラーメッセージを返す
   }
