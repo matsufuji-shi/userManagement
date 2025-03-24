@@ -10,6 +10,9 @@ const express = require('express');
 // CORS（Cross-Origin Resource Sharing）を有効にし、異なるオリジン間のリクエストを許可する
 const cors = require('cors');
 
+//dbをインポート
+// const db = require('./config/db');
+
 // ユーザールートのモジュールをインポート
 // `./routes/userRoutes` にはユーザー関連の API エンドポイントが定義されている
 const userRoutes = require('./routes/userRoutes');
@@ -51,14 +54,22 @@ app.listen(PORT, () => {
 
 //クライアントから受け取った検索情報を取得
 //テーブル内の情報と比較しSQLクエリの実行
+
 app.get('/users/search',(req,res) => {
   const query = req.query.query;  //入力値の値のみ取得する
+  console.log(query);
 if(!query){  
   return res.status(400).send({error:"検索条件が必要です"}); //queryが空、存在しない場合400とエラーメッセージを返す
 }
+
+const sql = `SELECT * FROM users WHERE name LIKE ? OR email LIKE ?`;
+const values = [`%${query}%`, `%${query}%`];
+  //テーブルのユーザーとemailの内容をsqlへ入れている
+  
+  
+
 //データベースから検索条件に一致するユーザー情報を習得するためのSQLクエリを準備
-const sql = `SELECT * FROM user WHERE name LIKE ? OR email LIKE ?`;  //テーブルのユーザーとemailの内容をsqlへ入れている
-const values = [`%{query}`,`%${query}`];  //入力値の値に該当する値を取得している
+
 
 //データベースから検索結果を取得しクライアントに返す
 db.query(sql,values,(err,results) => {
@@ -66,6 +77,7 @@ db.query(sql,values,(err,results) => {
     return res.status(500).sent(err);
   }
   res.json(results);
+  
 });
 });
 

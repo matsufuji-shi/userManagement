@@ -1,11 +1,10 @@
 // フォームの送信イベントを監視し、`addUser` 関数を実行する
 
-const { rejects } = require("assert");
-const { resolve } = require("path");
+// const { rejects } = require("assert");
+// const { resolve } = require("path");
 
-// const { query } = require("express");
+// // const { query } = require("express");
 
-// const { query } = require("express");
 
 // フォームに入力された情報を取得し、新しいユーザーをサーバーに登録する
 document.getElementById('userForm').addEventListener('submit', addUser);
@@ -111,12 +110,23 @@ const searchButton = document.getElementById("searchButton");
 const resultList = document.getElementById("resultList");
 
 //ボタン押す＞入力値とテーブル内比較する＞あったら表示、なかったらメッセージ
-searchButton.addEventListener("click",function(){
+searchButton.addEventListener("click",async function(){
     const query = searchInput.value;
-    //入力の値をqueryに入れる
-    async function getda(params) {
+    console.log(query); //入っている
+    
+    this.append.post
+        try{
+            const response = await fetch(`http://localhost:3000/users/search?query=${encodeURIComponent(query)}`);
+            //URLはフルで入れる
+            if(!response.ok){
+                throw new Error(`HTTPエラー!ステータスコード：${response.status}`);
+            }
+            const data = await response.json();
+            console.log(data);
         
-    }
-    const response = await fetch(`/users/search?query=${encodeURIComponent(query)}`);
-    console.log(response)
-});
+        }catch(error){
+            console.log("エラーが発生しました",error);
+
+        }
+        
+    });
