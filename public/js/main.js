@@ -108,36 +108,38 @@ getUsers();
 const searchInput = document.getElementById("searchInput");
 const searchButton = document.getElementById("searchButton");
 const resultList = document.getElementById("resultList");
+const comment = document.getElementById("comment");
 
 //ボタン押す＞入力値とテーブル内比較する＞あったら表示、なかったらメッセージ
 searchButton.addEventListener("click",async function(){
     const query = searchInput.value;
     // console.log(query); //入っている
     
-    this.append.post
+    // this.append.post
         try{
             const response = await fetch(`http://localhost:3000/users/search?query=${encodeURIComponent(query)}`);
             //URLはフルで入れる
             if(!response.ok){
                 throw new Error(`HTTPエラー!ステータスコード：${response.status}`);
             }
+
             const data = await response.json();
             console.log(data);
-
-            // userList.innerHTML = '';
-            // data.forEach(user => {
-            //     // ユーザー情報を格納する `<li>` 要素を作成
-            //     const li = document.createElement('li');
-
-            //     // リストアイテムの内容を設定
-            //     // ユーザー名、メールアドレス、更新リンク、および削除ボタンを表示
-            //     li.innerHTML = `${user.name} ${user.email}`  
-            // }
-
-            
-        }catch(error){
+            if(data == ""){
+                // console.log("なし");
+                userList.innerHTML = '';
+                comment.insertAdjacentHTML('beforeend',"<p>"+"該当するユーザーが見つかりませんでした。"+"</p>");
+                }
+            else{
+                userList.innerHTML = '';
+                for(let i=0 ; i<data.length ; i++ ){
+                    resultList.insertAdjacentHTML('beforeend',`<li>名前：${data[i].name},email${data[i].email}</li>`);
+                
+                 }
+        }
+    }catch(error){
             console.log("エラーが発生しました",error);
 
         }
         
-    });
+    },false);
